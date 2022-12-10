@@ -7,10 +7,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-const api_key = "nv2zh5h8pmyh";
+const api_key = "gqatw6kd42q2";
 const api_secret =
-  "gf4wmuf9rj9vzfpvrdjkwr7qapwty64jdrb48qv7dmqejhrfhc6z94zr2atzcw4q";
+  "k49arh9cj96hydth73q8ebjsrx5x66vgwknyxxghn9sfnzfk9yfqj3wgqw92sdqz";
 const serverClient = StreamChat.getInstance(api_key, api_secret);
+console.log("instance being made");
 
 app.post("/signup", async (req, res) => {
   try {
@@ -21,10 +22,12 @@ app.post("/signup", async (req, res) => {
     res.json({ token, userId, firstName, lastName, username, hashedPassword });
   } catch (error) {
     res.json(error);
+    console.log("buggy");
   }
 });
 
 app.post("/login", async (req, res) => {
+  console.log("user access login");
   try {
     const { username, password } = req.body;
     const { users } = await serverClient.queryUsers({ name: username });
@@ -47,9 +50,12 @@ app.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.json(error);
+    console.log("more buggy");
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

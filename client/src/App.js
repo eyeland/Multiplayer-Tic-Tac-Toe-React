@@ -8,8 +8,10 @@ import { useState } from "react";
 import JoinGame from "./components/JoinGame";
 
 function App() {
-  const api_key = "nv2zh5h8pmyh";
+  const api_key = "gqatw6kd42q2";
   const cookies = new Cookies();
+  cookies.set("sameSite", "lax");
+
   const token = cookies.get("token");
   const client = StreamChat.getInstance(api_key);
   const [isAuth, setIsAuth] = useState(false);
@@ -39,6 +41,7 @@ function App() {
         token
       )
       .then((user) => {
+        console.log(user);
         setIsAuth(true);
       });
   }
